@@ -42,5 +42,4 @@ public static void main(String[] args) {
 	String[] strgs = {"c","c"};
 	System.out.println(groupingAnagram(strgs));
 }
-
 }
