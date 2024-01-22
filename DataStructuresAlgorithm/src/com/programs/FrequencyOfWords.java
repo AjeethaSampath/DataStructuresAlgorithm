@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -81,6 +82,39 @@ public class FrequencyOfWords {
 	        System.out.println(resultStr);
 	        return resultStr;
 	    }
+	 public static int[] topKFrequent(int[] nums, int k) {
+		 	int[] result = new int[k];
+		 	int count =0;
+		 	int j=0;
+		 	Map<Integer,Integer> mapInt = new HashMap<>();
+	        for(int i=0;i<nums.length;i++) {
+	        	if(!mapInt.containsKey(nums[i])) {
+	        		count =0;
+	        		count++;
+	        		mapInt.put(nums[i], count);
+	        	}
+	        	else {
+	        		count = mapInt.get(nums[i]);
+	        		count++;
+	        		mapInt.replace(nums[i], count);
+	        	}
+	        }
+	        List<Map.Entry<Integer, Integer>> entryList = new ArrayList<>(mapInt.entrySet());
+	        entryList.sort(Map.Entry.comparingByValue(Comparator.reverseOrder()));
+	       Map<Integer,Integer> sortedMap = new LinkedHashMap<>();
+	       for (Map.Entry<Integer, Integer> entry : entryList) {
+	    	   if(k>0) {
+	    		   
+			Integer key = entry.getKey();
+			Integer val = entry.getValue();
+			result[j] = entry.getKey();
+			k--;
+			j++;	
+			}
+			
+		}
+	      return result;
+	    }
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		String[] queries = {"bbb","cc"};
@@ -88,7 +122,10 @@ public class FrequencyOfWords {
 		String str = "raaeaedere";//zzzzbbbeert
 		//int[] result = numSmallerByFrequency(queries, words);
 		//System.out.println(Arrays.toString(result));
-		System.out.println(frequencySort(str));
+		//System.out.println(frequencySort(str));
+		int[] input = {1,1,2,2,3,2,2,2,4,5,5,5,5};
+		int key = 2;
+		System.out.println(Arrays.toString(topKFrequent(input, key)));
 
 	}
 
